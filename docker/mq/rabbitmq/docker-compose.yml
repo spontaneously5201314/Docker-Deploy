@@ -1,0 +1,32 @@
+version: '3'
+rabbitmq-1:
+  image: rabbitmq
+  hostname: rabbitmq-1
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+rabbitmq-2:
+  image: rabbitmq
+  hostname: rabbitmq-2
+  links:
+    - rabbit-1
+  environment:
+    - CLUSTERED=true
+    - CLUSTER_WITH=rabbitmq-1
+    - RAM_NODE=true
+  ports:
+    - "5673:5672"
+    - "15673:15672"
+
+rabbitmq-3:
+  image: rabbitmq
+  hostname: rabbitmq-3
+  links:
+    - rabbit-1
+    - rabbit-2
+  environment:
+    - CLUSTERED=true
+    - CLUSTER_WITH=rabbitmq-1
+  ports:
+    - "5674:5672"
