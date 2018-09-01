@@ -1,0 +1,48 @@
+# 用来作为arrow2测试环境项目的docker一键安装所有中间件的docker-compose脚本
+version: '3'
+services:
+  mysql8:
+    image: mysql:5.7
+    container_name: mysql5.7
+    volumes:
+#    - /data/docker/mysql/version8/data:/var/lib/mysql
+#    - /data/docker/mysql/version8/conf:/etc/mysql/conf.d
+    - D:\DockerVolumes\mysql\version5\data:/var/lib/mysql
+    - D:\DockerVolumes\mysql\version5\conf:/etc/mysql/conf.d
+    restart: unless-stopped
+    ports:
+    - "3306:3306"
+    expose:
+    - "3308"
+    environment:
+      MYSQL_ROOT_PASSWORD: arrow2
+#      MYSQL_DATABASE: arrow2
+#      MYSQL_USER: arrow2
+#      MYSQL_USER: arrow2
+#      MYSQL_PASSWORD: arrow2
+#      MYSQL_HOST: %
+#      GRANT ALL PRIVILEGES ON *.* TO `root`@`localhost` IDENTIFIED BY `arrow2` WITH GRANT OPTION;
+#GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'arrow2' WITH GRANT OPTION;
+#FLUSH PRIVILEGES;
+
+#先创建一个用户
+#create user 'test'@'%' identified by '123123';
+#再进行授权
+#grant all privileges on *.* to 'root'@'%' with grant option;
+#grant all privileges on *.* to 'root'@'localhost' with grant option;
+
+
+#  redis:
+#  rabbitmq:
+#volumes:
+#  db_data:
+  #    driver: local
+  #    - /data/docker/mysql/version8
+#  db_conf:
+#    driver: local
+#    - /data/docker/mysql/conf
+
+#networks:
+#  mysql:
+#    driver: host
+#
