@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-demo
+  namespace: default
+  labels:
+    app: mynginx
+    tier: frontend
+spec:
+  containers:
+    - name: mynginx
+      image: nginx:latest
+      imagePullPolicy: Always
+      ports:
+        - name: http-nginx
+          containerPort: 80
+        - name: https-nginx
+          containerPort: 443
+    - name: busybox
+      image: busybox:latest
+      imagePullPolicy: IfNotPresent
+      command:
+        - "/bin/sh"
+        - "-c"
+        - "echo $(date) >> /usr/share/nginx/html/index.html; sleep 5"
+  nodeSelector:

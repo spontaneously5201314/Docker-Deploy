@@ -209,8 +209,8 @@ services:
     ports:
       - "9091:9000"
       - "9092:9092"
-    networks:
-      - sonarnet
+#    networks:
+#      - sonarnet
     environment:
       SONARQUBE_JDBC_USERNAME: sonar
       SONARQUBE_JDBC_PASSWORD: sonar
@@ -220,14 +220,16 @@ services:
       - /data/docker/sonar/conf:/opt/sonarqube/conf
       - /data/docker/sonar/extensions:/opt/sonarqube/extensions
       - /data/docker/sonar/lib/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    links:
+      - sonardb
 
 #在maven项目中使用的方法mvn sonar:sonar -Dsonar.host.url=http://10.60.82.158:9091 -Dsonar.login=cd448e763381bf829b8d0b7c27eaf7c4d1b1c5b5
 
   sonardb:
     image: postgres:10
     restart: unless-stopped
-    networks:
-      - sonarnet
+#    networks:
+#      - sonarnet
     environment:
       - POSTGRES_USER=sonar
       - POSTGRES_PASSWORD=sonar
@@ -236,16 +238,6 @@ services:
       # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
       - /data/docker/postgresql/data:/var/lib/postgresql/data
 
-  gitlab-runner:
-    image: gitlab/gitlab-runner:latest
-    container_name: gitlab-runner
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /srv/gitlab-runner/config:/etc/gitlab-runner
-    extra_hosts:
-      - "gitlab.local:10.106.128.234"
-
-networks:
-  sonarnet:
-    driver: bridge
+#networks:
+#  sonarnet:
+#    driver: bridge
