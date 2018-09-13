@@ -1,0 +1,14 @@
+version: "3.1"
+services:
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    container_name: mysql5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3309:3306"
+    expose:
+      - "3309"
+    volumes:
+      - "D:\DockerVolumes\mysql\version5:/var/lib/mysql"

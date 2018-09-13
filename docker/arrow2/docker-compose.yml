@@ -200,7 +200,20 @@ services:
       - "8088:8080"
       - "50000:50000"
     volumes:
+# 在使用docker部署jenkins的时候，一定要注意容器中挂载的卷在宿主机中一定要有读写权限，不然在容器里面配置的各种maven的本地仓库位置，在打包的时候都不能写入，
+# 会报各种莫名其妙的不能解析pom.xml文件的错误，会误导解决
       - /data/docker/jenkins:/var/jenkins_home
+      - /data/docker/maven/repo:/var/jenkins_home/maven/repo
+      - /data/maven/apache-maven-3.5.4:/data/maven
+      - /data/maven/repo:/data/maven/repo
+      - /usr/java/jdk1.8.0_181-amd64:/usr/java/jdk1.8
+      - /data/maven/repo:/var/jenkins_home/.m2
+
+#  maven:
+#    image: maven:3.5.4-jdk-8
+#    container_name: maven
+#    volumes:
+#      - /data/docker/maven/repo:/root/.m2
 
   sonar:
     image: sonarqube:7.1
@@ -238,13 +251,13 @@ services:
 
   gitlab-runner:
     image: gitlab/gitlab-runner:latest
-    container_name: gitlab-runner
+    container_name: gitlab-runner-docker
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/gitlab-runner/config:/etc/gitlab-runner
     extra_hosts:
-      - "gitlab.local:10.106.128.234"
+      - "gitlab.local:10.60.80.94"
 
 networks:
   sonarnet:

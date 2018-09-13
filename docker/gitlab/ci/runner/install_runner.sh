@@ -17,6 +17,11 @@ docker run -d --name gitlab-runner --add-host gitlab.local:10.106.128.234 --rest
   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
   gitlab/gitlab-runner:latest
 
+docker run -d --name gitlab-runner --add-host gitlab.local:10.60.80.94 --restart unless-stopped \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  gitlab/gitlab-runner:latest
+
 # 上述指令主要是根据gitlab/gitlab-runner这个docker镜像运行一个docker container，
 # 这个镜像里安装好了gitlab-runner这个程序来为我们创建测试用的虚拟环境。
 # 我们把这个container用--name参数命名为gitlab-runner。
