@@ -234,7 +234,8 @@ services:
       - /data/docker/sonar/extensions:/opt/sonarqube/extensions
       - /data/docker/sonar/lib/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
 
-#在maven项目中使用的方法mvn sonar:sonar -Dsonar.host.url=http://10.60.82.158:9091 -Dsonar.login=cd448e763381bf829b8d0b7c27eaf7c4d1b1c5b5
+# 在maven项目中使用的方法mvn sonar:sonar -Dsonar.host.url=http://10.60.82.158:9091 -Dsonar.login=cd448e763381bf829b8d0b7c27eaf7c4d1b1c5b5
+# 账号admin,密码admin
 
   sonardb:
     image: postgres:10
