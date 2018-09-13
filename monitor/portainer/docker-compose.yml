@@ -1,0 +1,16 @@
+# 参考地址:https://portainer.io/install.html
+# https://portainer.readthedocs.io/en/stable/deployment.html#quick-start
+# https://portainer.readthedocs.io/en/latest/deployment.html
+version: "3"
+services:
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
