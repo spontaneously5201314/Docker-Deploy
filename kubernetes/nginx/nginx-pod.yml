@@ -6,6 +6,8 @@ metadata:
   labels:
     app: mynginx
     tier: frontend
+  annotations:
+    spontaneously/created-by: spontaneously
 spec:
   containers:
     - name: mynginx
@@ -22,5 +24,7 @@ spec:
       command:
         - "/bin/sh"
         - "-c"
-        - "echo $(date) >> /usr/share/nginx/html/index.html; sleep 5"
-  nodeSelector:
+        - "sleep 3600"
+#  nodeSelector:
+#    diskType: ssd
+  restartPolicy: Always

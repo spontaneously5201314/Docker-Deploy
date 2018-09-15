@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: post-start-pod
+  namespace: default
+spec:
+  containers:
+  - name: busybox-httpd
+    image: busybox:latest
+    imagePullPolicy: IfNotPresent
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - "/bin/sh"
+          - "-c"
+          - "echo 'Home_Page' >> /tmp/index.html"
+    # 这里有一个问题需要注意的，两个command的运行顺序是，下面的先运行，然后在运行上面的，
+    # 所以下面的命令执行的目录一定不能依靠上面的命令去创建，因为tmp是事先存在的目录
+    command:
+    - "/bin/httpd"
+    args:
+    - "-f"
+    - "-h /tmp"

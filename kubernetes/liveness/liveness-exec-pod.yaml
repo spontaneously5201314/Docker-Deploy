@@ -1,0 +1,20 @@
+# 用来检测pods.spec.containers.livenessProbe.exec下面的探针
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-exec-pod
+  namespace: default
+spec:
+  containers:
+  - name: liveness-exec-pod
+    image: busybox:latest
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh", "-c", "touch /tmp/health; sleep 30; rm -f /tmp/health; sleep 3600"]
+    livenessProbe:
+      exec:
+        command:
+        - "test"
+        - "-e"
+        - "/tmp/health"
+      initialDelaySeconds: 2
+      periodSeconds: 3
