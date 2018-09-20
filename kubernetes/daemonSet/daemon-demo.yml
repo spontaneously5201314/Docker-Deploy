@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      role: logstore
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: logstore
+    spec:
+      containers:
+      - name: redis
+        image: redis:4.0-alpine
+        ports:
+          - containerPort: 6379
+            name: redis
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-demo
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: filebeat
+      release: stable
+  template:
+    metadata:
+      labels:
+        app: filebeat
+        release: stable
+    spec:
+      containers:
+      - name: filebeat
+        image: docker.elastic.co/beats/filebeat:6.4.0
+        env:
+        - name: REDIS_HOST
+          value: redis.default.svc.cluster.local
+        - name: REDIS_LOG_LEVEL
+          value: info

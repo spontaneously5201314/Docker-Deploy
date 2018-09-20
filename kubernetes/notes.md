@@ -25,3 +25,7 @@ Pod控制器
     CronJob:周期运行
     StatefulSet:保存有状态的应用
 控制器的关键点是，一定要有节点选择器
+
+
+Service
+    工作模式：userspace(1.1之前版本),iptables(1.10之前版本),ipvs(1.11及之后版本)

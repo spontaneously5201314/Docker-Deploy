@@ -16,7 +16,6 @@ services:
       MYSQL_ROOT_PASSWORD: arrow2
       MYSQL_DATABASE: arrow2
       MYSQL_USER: arrow2
-      MYSQL_USER: arrow2
       MYSQL_PASSWORD: arrow2
 # MySQL5版本分配权限：
 # GRANT ALL PRIVILEGES ON *.* TO `root`@`localhost` IDENTIFIED BY `arrow2` WITH GRANT OPTION;

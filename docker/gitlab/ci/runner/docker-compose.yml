@@ -1,0 +1,13 @@
+version: '3'
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner-compose
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+      - /data/maven/repo:~/.m2/repository
+      - /data/maven/apache-maven-3.5.4/conf:/usr/share/maven/conf
+    environment:
+      add-host: gitlab.local:10.60.80.94

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-demo
+  namespace: default
+  labels:
+    app: my-deploy
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: my-deploy
+  template:
+    metadata:
+      labels:
+        app: my-deploy
+    spec:
+      containers:
+      - name: deploy-demo
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
+            name: http
+  strategy:
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 20%
+
+# kubectl patch deploy deploy-demo -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge":"20%","maxUnavailable":"20%"}}}}'
