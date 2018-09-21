@@ -5,4 +5,6 @@ MAINTAINER Spontaneously hongfei@cmcm.com
 
 COPY settings.xml /usr/share/maven/ref/
 
+RUN ["/bin/bash", "-c", "rm -rf /usr/share/maven/ref/settings-docker.xml"]
+
 CMD ["mvn"]
