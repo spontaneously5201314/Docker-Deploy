@@ -1,0 +1,19 @@
+version: "3"
+services:
+  docker-registry:
+    image: registry:2
+    container_name: cmcm-docker-registry
+    ports:
+      - "5000:5000"
+      - "443:443"
+    volumes:
+      - "/data/docker/registry/data:/var/lib/registry"
+      - "/data/docker/registry/conf/certs:/certs"
+    environment:
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/ncgameregistry.crt
+      - REGISTRY_HTTP_TLS_KEY=/certs/ncgameregistry.key
+      - REGISTRY_HTTP_ADDR=0.0.0.0:443
+    restart: always
+# openssl req -newkey rsa:4096 -nodes -sha256 -keyout /data/docker/registry/conf/certs/ncgameregistry.key -x509 -days 3650 -out /data/docker/registry/conf/certs/ncgameregistry.crt
+# server_name:registry.ncgame.cmcm.com
+# 在有REGISTRY_HTTP_ADDR=0.0.0.0:443这句的时候,就不另外配置nginx来控制访问了
