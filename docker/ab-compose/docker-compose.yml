@@ -1,0 +1,69 @@
+version: "3"
+services:
+  registry:
+    image: registry.ncgame.cmcm.com/ab-dc-registry-server:1.0.0-SNAPSHOT
+    container_name: registry
+#    restart: always
+    ports:
+      - "18761:8761"
+  feign:
+    image: registry.ncgame.cmcm.com/ab-dc-feign:1.0.0-SNAPSHOT
+    container_name: feign
+#    restart: always
+    ports:
+      - "29091:9091"
+  gateway:
+    image: registry.ncgame.cmcm.com/ab-dc-gateway:1.0.0-SNAPSHOT
+    container_name: gateway
+#    restart: always
+    ports:
+      - "19090:9090"
+  center:
+    image: registry.ncgame.cmcm.com/ab-dc-center:1.0.0-SNAPSHOT
+    container_name: center
+#    restart: always
+    ports:
+      - "20100:10100"
+      - "20200:10200"
+  account:
+    image: registry.ncgame.cmcm.com/account-api:1.0.0-SNAPSHOT
+    container_name: account
+#    restart: always
+    ports:
+      - "30288:20288"
+  match:
+    image: registry.ncgame.cmcm.com/match-api:1.0.0-SNAPSHOT
+    container_name: match
+#    restart: always
+    ports:
+      - "40388:20388"
+  room:
+    image: registry.ncgame.cmcm.com/room-api:1.0.0-SNAPSHOT
+    container_name: room
+#    restart: always
+    ports:
+      - "50488:20488"
+  charge:
+    image: registry.ncgame.cmcm.com/charge-api:1.0.0-SNAPSHOT
+    container_name: charge
+#    restart: always
+    ports:
+      - "60588:20588"
+  monitor:
+    image: registry.ncgame.cmcm.com/ab-dc-monitor:1.0.0-SNAPSHOT
+    container_name: monitor
+#    restart: always
+#    ports:
+#      - "9090:9090"
+  log:
+    image: registry.ncgame.cmcm.com/ab-dc-log:1.0.0-SNAPSHOT
+    container_name: log
+#    restart: always
+#    ports:
+#      - "9090:9090"
+#networks:
+#  bridge:
+#    ab-dc:
+
+
+
