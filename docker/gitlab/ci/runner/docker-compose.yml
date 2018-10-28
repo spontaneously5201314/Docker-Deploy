@@ -7,7 +7,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/gitlab-runner/config:/etc/gitlab-runner
-      - /data/maven/repo:~/.m2/repository
+      - /data/maven/repo:/root/.m2/repository
       - /data/maven/apache-maven-3.5.4/conf:/usr/share/maven/conf
     environment:
       add-host: gitlab.local:10.60.80.94
