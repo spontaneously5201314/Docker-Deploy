@@ -1,16 +1,18 @@
 version: "3.4"
 services:
   mongo:
-    image: mongo
+    image: mongo:latest
     restart: always
     container_name: quant_mongo
+    user: root
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     ports:
       - 27017:27017
     volumes:
-      - D:\DockerVolumes\mongodb:/data/db
+#      - D:\DockerVolumes\mongodb:/data/db
+      - /opt/docker/volumes/mongodb:/data/db
 #  mongo-express:
 #    image: mongo-express
 #    restart: always
