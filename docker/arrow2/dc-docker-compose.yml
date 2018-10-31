@@ -1,0 +1,109 @@
+version: "3.4"
+services:
+  registry:
+    image: registry.ncgame.cmcm.com/arrow2-registry:1.0.0-SNAPSHOT
+    container_name: registry
+    hostname: registry
+    #    restart: always
+    ports:
+    - "18761:8761"
+  feign:
+    image: registry.ncgame.cmcm.com/arrow2-feign:1.0.0-SNAPSHOT
+    container_name: feign
+    hostname: feign
+    #    restart: always
+    ports:
+    - "29091:9091"
+    depends_on:
+    - registry
+  gateway:
+    image: registry.ncgame.cmcm.com/arrow2-dc-gateway:1.0.0-SNAPSHOT
+    container_name: gateway
+    hostname: gateway
+    #    restart: always
+    ports:
+    - "19090:9090"
+    depends_on:
+    - registry
+  center:
+    image: registry.ncgame.cmcm.com/arrow2-center:1.0.0-SNAPSHOT
+    container_name: center
+    hostname: center
+    #    restart: always
+    ports:
+    - "10100:10100"
+    - "10200:10200"
+    depends_on:
+    - registry
+    - feign
+    - gateway
+    - account
+    - match
+    - room
+    - charge
+  account:
+    image: registry.ncgame.cmcm.com/arrow2-account-api:1.0.0-SNAPSHOT
+    container_name: account
+    hostname: account
+    #    restart: always
+    ports:
+    - "30288:20288"
+    depends_on:
+    - registry
+  match:
+    image: registry.ncgame.cmcm.com/arrow2-match-api:1.0.0-SNAPSHOT
+    container_name: match
+    hostname: match
+    #    restart: always
+    ports:
+    - "40388:20388"
+    depends_on:
+    - registry
+  room:
+    image: registry.ncgame.cmcm.com/arrow2-room-api:1.0.0-SNAPSHOT
+    container_name: room
+    hostname: room
+    #    restart: always
+    ports:
+    - "50488:20488"
+    depends_on:
+    - registry
+  charge:
+    image: registry.ncgame.cmcm.com/arrow2-charge-api:1.0.0-SNAPSHOT
+    container_name: charge
+    hostname: charge
+    #    restart: always
+    ports:
+    - "60588:20588"
+    depends_on:
+    - registry
+  monitor:
+    image: registry.ncgame.cmcm.com/arrow2-monitor:1.0.0-SNAPSHOT
+    container_name: monitor
+#    restart: always
+    ports:
+      - "9090:9090"
+  log:
+    image: registry.ncgame.cmcm.com/arrow2-log:1.0.0-SNAPSHOT
+    container_name: log
+#    restart: always
+    ports:
+      - "9090:9090"
+  admin:
+    image: registry.ncgame.cmcm.com/arrow2-admin:1.0.0-SNAPSHOT
+    container_name: admin
+    #    restart: always
+    ports:
+    - "9090:9090"
+  gmt:
+    image: registry.ncgame.cmcm.com/arrow2-gmt:1.0.0-SNAPSHOT
+    container_name: gmt
+    #    restart: always
+    ports:
+    - "9090:9090"
+#networks:
+#  bridge:
+#    ab-dc:
+
+
+
