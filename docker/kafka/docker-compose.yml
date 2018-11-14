@@ -1,0 +1,2 @@
+# 使用docker创建一个kafka的镜像，使用
+version: "3.4"
